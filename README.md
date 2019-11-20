@@ -3,7 +3,7 @@
 Source code for MultiDepth, our single-image depth estimation method based on joint regression and classification in a multi-task setup.
 This work was presented at the IEEE Intelligent Transportation Systems Conference (ITSC) 2019.
 
-If you make use of our code or approach, please consider citing our paper as:
+If you make use of our code or approach, please consider citing [our paper](https://arxiv.org/abs/1907.11111) as:
 
     @InProceedings{,
       author    = {Lukas Liebel and Marco K\"orner},
