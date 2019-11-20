@@ -1,0 +1,57 @@
+logging:
+    log_level: 'info'
+    log_dir: '/root/logs'
+    log_name: 'example_log'
+model:
+    arch: pspnet
+data:
+    dataset: kitti_multi_depth
+    train_split: train
+    val_split: val
+    path: /root/data/kitti
+    img_cols: 128
+    img_rows: 128
+    tasks:
+      d_cls: True
+      d_reg: True
+    depth_scaling: 'norm_log'
+    max_depth: 125
+    min_depth: 2
+    depth_bins: 32
+training:
+    train_iters: 500000
+    batch_size: 32
+    val_interval: 1000
+    print_interval: 10
+    n_workers: 1
+    optimizer:
+        name: 'adam'
+        betas: [0.9, 0.999]
+        lr: 1.0e-4
+        weight_decay: 0.0001
+    augmentations:
+      rcrop: [128, 128]
+      hflip: 0.5
+    loss:
+        d_cls:
+          name: 'cross_entropy_2d'
+          reduction: 'elementwise_mean'
+        d_reg:
+          name: 'masked_mse'
+          ignore_index: 0
+    task_weight_init:
+        d_cls: 1
+        d_reg: 1
+    task_weight_policy: 'update'
+    lr_schedule:
+        name: 'poly_lr'
+        gamma: 0.9
+        max_iter: 500000
+    resume:
+    checkpoint_interval: 500
+validation:
+    batch_size: 8
+    n_workers: 0
+    max_iter: 99999999
+device:
+    use_gpu: True
